@@ -19,7 +19,7 @@ private:
 public:
 
     /**
-     * MaterialDot object (note that atom is a material dot with mass)
+     * MaterialDot object
      * @param x means X-coordinate
      * @param y means Y-coordinate
      * @param z means Z-coordinate
@@ -27,7 +27,7 @@ public:
     MaterialDot(float x=0, float y=0, float z=0);
 
     /**
-     * Get atom coordinates as a vector
+     * Get material dot coordinates as a vector
      * @return vector of floats with x, y, z coordinates respectively
      */
     virtual std::vector<float> getCoordinates();
