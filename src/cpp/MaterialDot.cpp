@@ -3,11 +3,16 @@
 //
 
 #include "MaterialDot.hpp"
-MaterialDot::MaterialDot(float x, float y, float z) {
-    _x = x;
-    _y = y;
-    _z = z;
-}
+#include <stdexcept>
+
+MaterialDot::MaterialDot(float x, float y, float z): _x(x), _y(y), _z(z)
+{}
+
+MaterialDot::MaterialDot(std::vector<float> coords): _x(coords.at(0)), _y(coords.at(1)), _z(coords.at(2))
+{}
+
+MaterialDot::MaterialDot(float *coords): _x(coords[0]), _y(coords[1]), _z(coords[2])
+{}
 
 std::vector<float> MaterialDot::getCoordinates() {
     std::vector<float> res = std::vector<float>();

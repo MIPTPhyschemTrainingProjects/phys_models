@@ -16,3 +16,19 @@ TEST(MaterialDot, getCoordinates) {
         ASSERT_EQ(a.getCoordinates().at(i), coords[i]);
     }
 }
+
+TEST(MaterialDot, createWith_vector) {
+    std::vector<float> a = std::vector<float>();
+    a.push_back(2);
+    a.push_back(4);
+    a.push_back(5);
+    MaterialDot dot(a);
+    ASSERT_EQ(dot.getCoordinates(), a);
+}
+
+TEST(MaterialDot, createWith_array) {
+    float p[3] = {-2, 100, -33};
+    MaterialDot dot(p);
+    std::vector<float> c(p, sizeof(p)/sizeof(p[0]) + p);
+    ASSERT_EQ(dot.getCoordinates(), c);
+}
