@@ -2,15 +2,15 @@
 // Created by aleksei on 24.02.18.
 //
 
-#ifndef PHYS_MODELS_ATOM_HPP
-#define PHYS_MODELS_ATOM_HPP
+#ifndef PHYS_MODELS_MATERIAL_DOT_HPP
+#define PHYS_MODELS_MATERIAL_DOT_HPP
 
 #include <vector>
 
 /**
- * Class describing atom as a (!) material dot with mass
+ * Class describing material dot with mass
  */
-class Atom {
+class MaterialDot {
 private:
     /// Coordinates
     float _x, _y, _z;
@@ -19,12 +19,12 @@ private:
 public:
 
     /**
-     * Atom object (note that atom is a material dot with mass)
+     * MaterialDot object (note that atom is a material dot with mass)
      * @param x means X-coordinate
      * @param y means Y-coordinate
      * @param z means Z-coordinate
      */
-    Atom(float x=0, float y=0, float z=0);
+    MaterialDot(float x=0, float y=0, float z=0);
 
     /**
      * Get atom coordinates as a vector
@@ -35,4 +35,4 @@ public:
 };
 
 
-#endif //PHYS_MODELS_ATOM_HPP
+#endif //PHYS_MODELS_MATERIAL_DOT_HPP

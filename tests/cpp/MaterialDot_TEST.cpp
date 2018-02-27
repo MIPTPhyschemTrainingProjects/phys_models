@@ -3,14 +3,14 @@
 //
 
 #include <gtest/gtest.h>
-#include "Atom.hpp"
+#include "MaterialDot.hpp"
 
-TEST(Atom, createWith_3_Floats) {
-    Atom a(2, 5, 3);
+TEST(MaterialDot, createWith_3_Floats) {
+    MaterialDot a(2, 5, 3);
 }
 
-TEST(Atom, getCoordinates) {
-    Atom a(2, 3, -2);
+TEST(MaterialDot, getCoordinates) {
+    MaterialDot a(2, 3, -2);
     int coords[] = {2, 3, -2};
     for(int i = 0; i < 2; i++) {
         ASSERT_EQ(a.getCoordinates().at(i), coords[i]);

@@ -11,8 +11,8 @@ set(TESTS_DIR tests)
 include_directories(${SOURCES_DIR}/cpp)
 include_directories(${TESTS_DIR}/cpp)
 
-project(Atom-lib)
-    add_library(Atom-lib ${SOURCES_DIR}/cpp/Atom.cpp)
+project(MaterialDot-lib)
+    add_library(MaterialDot-lib ${SOURCES_DIR}/cpp/MaterialDot.cpp)
 
 ####################################
 # TAKEN FROM GOOGLETEST DOCUMENTAION
@@ -49,8 +49,8 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 ####################################
 
-project(Atom-test)
-    add_executable(atom-test ${TESTS_DIR}/cpp/Atom_TEST.cpp)
-    set_target_properties(atom-test PROPERTIES LINKER_LANGUAGE CXX)
-    target_link_libraries(atom-test Atom-lib gtest_main)
-    add_test(NAME Atom-tests COMMAND atom-test)
+project(MaterialDot-test)
+    add_executable(MaterialDot-test ${TESTS_DIR}/cpp/MaterialDot_TEST.cpp)
+    set_target_properties(MaterialDot-test PROPERTIES LINKER_LANGUAGE CXX)
+    target_link_libraries(MaterialDot-test MaterialDot-lib gtest_main)
+    add_test(NAME MaterialDot-tests COMMAND MaterialDot-test)
