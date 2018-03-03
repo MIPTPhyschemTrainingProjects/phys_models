@@ -46,6 +46,18 @@ public:
      */
     virtual std::vector<float> getCoordinates();
 
+    /**
+     * Get material dot velocity as a vector
+     * @return vector of floats with vx, vy, vz velocities respectively
+     */
+    virtual std::vector<float> getVelocity();
+
+    /**
+     * Set material dot velocity from vector
+     * @param v vector of floats containing vx, vy, vz to set
+     */
+    virtual void setVelocity(std::vector<float> v);
+
 };
 
 

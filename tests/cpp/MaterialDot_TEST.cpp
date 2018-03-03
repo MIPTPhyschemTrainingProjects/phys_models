@@ -32,3 +32,11 @@ TEST(MaterialDot, createWith_array) {
     std::vector<float> c(p, sizeof(p)/sizeof(p[0]) + p);
     ASSERT_EQ(dot.getCoordinates(), c);
 }
+
+TEST(MaterialDot, getVelocity_and_setVelocity) {
+    float p[3] = {-5, 10, -20};
+    MaterialDot dot(p);
+    std::vector<float> c(p, sizeof(p) / sizeof(p[0]) + p);
+    dot.setVelocity(c);
+    ASSERT_EQ(dot.getVelocity(), c);
+}

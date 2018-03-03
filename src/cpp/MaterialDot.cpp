@@ -21,3 +21,20 @@ std::vector<float> MaterialDot::getCoordinates() {
     res.push_back(_z);
     return res;
 }
+
+std::vector<float> MaterialDot::getVelocity() {
+    std::vector<float> res = std::vector<float>();
+    res.push_back(_vx);
+    res.push_back(_vy);
+    res.push_back(_vz);
+    return res;
+}
+
+void MaterialDot::setVelocity(std::vector<float> v) {
+    _vz = v.back();
+    v.pop_back();
+    _vy = v.back();
+    v.pop_back();
+    _vx = v.back();
+    v.pop_back();
+}
