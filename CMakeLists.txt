@@ -1,18 +1,4 @@
 cmake_minimum_required(VERSION 2.9)
-project(phys_models)
-
-set(PVERSION 0.1)
-
-#set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
-set(SOURCES_DIR src)
-set(TESTS_DIR tests)
-
-include_directories(${SOURCES_DIR}/cpp)
-include_directories(${TESTS_DIR}/cpp)
-
-project(MaterialDot-lib)
-    add_library(MaterialDot-lib ${SOURCES_DIR}/cpp/MaterialDot.cpp)
 
 ####################################
 # TAKEN FROM GOOGLETEST DOCUMENTAION
@@ -48,6 +34,21 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 ####################################
+
+project(phys_models)
+
+set(PVERSION 0.1)
+
+#set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(SOURCES_DIR src)
+set(TESTS_DIR tests)
+
+include_directories(${SOURCES_DIR}/cpp)
+include_directories(${TESTS_DIR}/cpp)
+
+project(MaterialDot-lib)
+add_library(MaterialDot-lib ${SOURCES_DIR}/cpp/MaterialDot.cpp)
 
 project(MaterialDot-test)
     add_executable(MaterialDot-test ${TESTS_DIR}/cpp/MaterialDot_TEST.cpp)
