@@ -17,9 +17,9 @@ private:
     std::array<float, 3> coordinates;
     /// Velocity
     std::array<float, 3> velocity;
+    /// Mass
     float m = 1;
 public:
-
     /**
      * MaterialDot object
      * @param x means X-coordinate
