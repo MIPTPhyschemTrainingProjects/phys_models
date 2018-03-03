@@ -61,6 +61,13 @@ public:
      */
     float getMass();
 
+    /**
+     * Make the dot move in accordance with given force and time
+     * @param force Total force that acts on the dot
+     * @param t Time period of the force action
+     */
+    void evolute(std::array<float, 3> force, float t);
+
 };
 
 

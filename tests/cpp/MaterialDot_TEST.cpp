@@ -36,3 +36,13 @@ TEST(MaterialDot, getMass) {
     MaterialDot dot(5, 3, 2, 95);
     ASSERT_EQ(dot.getMass(), 95);
 }
+
+TEST(MaterialDot, evoluteFromZeroVelocity) {
+    MaterialDot dot(5, 5, 5, 1);
+    std::array<float, 3> force = {-1, -2, -3};
+    dot.evolute(force, 2);
+    std::array<float, 3> res_coords = {3, 1, -1};
+    std::array<float, 3> res_vel = {-2, -4, -6};
+    ASSERT_EQ(dot.getCoordinates(), res_coords);
+    ASSERT_EQ(dot.getVelocity(), res_vel);
+}
