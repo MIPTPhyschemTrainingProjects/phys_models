@@ -31,3 +31,8 @@ TEST(MaterialDot, getVelocity_and_setVelocity) {
     dot.setVelocity(v);
     ASSERT_TRUE(dot.getVelocity() == v);
 }
+
+TEST(MaterialDot, getMass) {
+    MaterialDot dot(5, 3, 2, 95);
+    ASSERT_EQ(dot.getMass(), 95);
+}

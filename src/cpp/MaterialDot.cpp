@@ -21,3 +21,7 @@ std::array<float, 3> MaterialDot::getVelocity() {
 void MaterialDot::setVelocity(std::array<float, 3> v) {
     velocity = v;
 }
+
+float MaterialDot::getMass() {
+    return m;
+}

@@ -55,6 +55,12 @@ public:
      */
     virtual void setVelocity(std::array<float, 3> v);
 
+    /**
+     * Get material dot mass
+     * @return Mass of the dot
+     */
+    virtual float getMass();
+
 };
 
 
