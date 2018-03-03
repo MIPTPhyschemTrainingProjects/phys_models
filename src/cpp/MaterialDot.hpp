@@ -62,7 +62,7 @@ public:
     float getMass() const;
 
     /**
-     * Make the dot move in accordance with given force and time
+     * Make the dot move in accordance with given <b>force</b> and <b>time</b>
      * @param force Total force that acts on the dot
      * @param t Time period of the force action
      */
