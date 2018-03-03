@@ -41,13 +41,13 @@ public:
      * Get material dot coordinates as an array
      * @return Array of floats with copy of x, y, z coordinates respectively
      */
-    std::array<float, 3> getCoordinates();
+    std::array<float, 3> getCoordinates() const;
 
     /**
      * Get material dot velocity as an array
      * @return Array of floats with copy of vx, vy, vz velocities respectively
      */
-    std::array<float, 3> getVelocity();
+    std::array<float, 3> getVelocity() const;
 
     /**
      * Set material dot velocity from vector
@@ -59,14 +59,14 @@ public:
      * Get material dot mass
      * @return Mass of the dot
      */
-    float getMass();
+    float getMass() const;
 
     /**
      * Make the dot move in accordance with given force and time
      * @param force Total force that acts on the dot
      * @param t Time period of the force action
      */
-    void evolute(std::array<float, 3> force, float t);
+    void evolute(const std::array<float, 3>& force, const float t);
 
 };
 
