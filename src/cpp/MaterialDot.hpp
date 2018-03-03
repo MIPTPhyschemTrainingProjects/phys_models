@@ -41,25 +41,25 @@ public:
      * Get material dot coordinates as an array
      * @return Array of floats with copy of x, y, z coordinates respectively
      */
-    virtual std::array<float, 3> getCoordinates();
+    std::array<float, 3> getCoordinates();
 
     /**
      * Get material dot velocity as an array
      * @return Array of floats with copy of vx, vy, vz velocities respectively
      */
-    virtual std::array<float, 3> getVelocity();
+    std::array<float, 3> getVelocity();
 
     /**
      * Set material dot velocity from vector
      * @param v vector of floats containing vx, vy, vz to set
      */
-    virtual void setVelocity(std::array<float, 3> v);
+    void setVelocity(std::array<float, 3> v);
 
     /**
      * Get material dot mass
      * @return Mass of the dot
      */
-    virtual float getMass();
+    float getMass();
 
 };
 
