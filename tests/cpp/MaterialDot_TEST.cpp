@@ -45,4 +45,13 @@ TEST(MaterialDot, evoluteFromZeroVelocity) {
     std::array<float, 3> res_vel = {-2, -4, -6};
     ASSERT_EQ(dot.getCoordinates(), res_coords);
     ASSERT_EQ(dot.getVelocity(), res_vel);
+
+    MaterialDot dot1(-1, -2, -3, 5);
+    std::array<float, 3> force1 = {5, 2, -4};
+    float t = 5;
+    std::array<float, 3> res_coords1 = {11.5, 3, -13};
+    std::array<float, 3> res_velocity1 = {5, 2, -4};
+    dot1.evolute(force1, t);
+    ASSERT_EQ(dot1.getVelocity(), res_velocity1);
+    ASSERT_EQ(dot1.getCoordinates(), res_coords1);
 }
