@@ -17,6 +17,7 @@ private:
     std::array<float, 3> coordinates;
     /// Velocity
     std::array<float, 3> velocity;
+    float m = 1;
 public:
 
     /**
@@ -24,15 +25,17 @@ public:
      * @param x means X-coordinate
      * @param y means Y-coordinate
      * @param z means Z-coordinate
+     * @param m means mass of a dot
      */
-    explicit MaterialDot(float x=0, float y=0, float z=0);
+    explicit MaterialDot(float x=0, float y=0, float z=0, float m=1);
 
     /**
     * MaterialDot object
     * @param coords array of floats with size 3
     * that will be considered as initial coordinates
+    * @param m means mass of a dot
     */
-    explicit MaterialDot(float* coords);
+    explicit MaterialDot(float* coords, float m=1);
 
     /**
      * Get material dot coordinates as an array

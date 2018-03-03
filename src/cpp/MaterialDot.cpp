@@ -4,10 +4,10 @@
 
 #include "MaterialDot.hpp"
 
-MaterialDot::MaterialDot(float x, float y, float z): coordinates({x, y, z})
+MaterialDot::MaterialDot(float x, float y, float z, float m): coordinates({x, y, z}), m(m)
 {}
 
-MaterialDot::MaterialDot(float *coords): coordinates({coords[0], coords[1], coords[2]})
+MaterialDot::MaterialDot(float *coords, float m): coordinates({coords[0], coords[1], coords[2]}), m(m)
 {}
 
 std::array<float, 3> MaterialDot::getCoordinates() {
