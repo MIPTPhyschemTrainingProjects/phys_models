@@ -39,7 +39,6 @@ project(phys_models)
 
 set(PVERSION 0.1)
 
-#set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 set(SOURCES_DIR src)
 set(TESTS_DIR tests)
@@ -48,10 +47,9 @@ include_directories(${SOURCES_DIR}/cpp)
 include_directories(${TESTS_DIR}/cpp)
 
 project(MaterialDot-lib)
-add_library(MaterialDot-lib ${SOURCES_DIR}/cpp/MaterialDot.cpp)
+    add_library(MaterialDot-lib ${SOURCES_DIR}/cpp/MaterialDot.cpp)
 
 project(MaterialDot-test)
     add_executable(MaterialDot-test ${TESTS_DIR}/cpp/MaterialDot_TEST.cpp)
-    set_target_properties(MaterialDot-test PROPERTIES LINKER_LANGUAGE CXX)
     target_link_libraries(MaterialDot-test MaterialDot-lib gtest_main)
     add_test(NAME MaterialDot-tests COMMAND MaterialDot-test)
