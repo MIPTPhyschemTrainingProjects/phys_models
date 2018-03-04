@@ -57,3 +57,8 @@ project(MaterialDot-test)
 project(PhysicsHandler)
     add_library(PhysicsHandler-lib ${SOURCES_DIR}/cpp/PhysicsHandler.hpp)
     set_target_properties(PhysicsHandler-lib PROPERTIES LINKER_LANGUAGE CXX)
+
+project(PhysicsHandler-TEST)
+    add_executable(PhysicsHandler-test ${TESTS_DIR}/cpp/PhysicsHandler_TEST.cpp)
+    target_link_libraries(PhysicsHandler-test MaterialDot-lib gtest_main)
+    add_test(NAME PhysicsHandler-test COMMAND PhysicsHandler-test)
