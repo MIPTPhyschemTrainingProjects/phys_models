@@ -33,8 +33,15 @@ public:
      */
     virtual std::array<float, 3> getForce(Particle p1, Particle p2) = 0;
 
-    void addParticle(Particle p) {
-        _all_particles.insert(p);
+    PhysicsHandler(float total_time, float dt): _total_time(total_time), _dt(dt)
+    {}
+
+    /**
+     * Adds particle to the system, so that it will be considered in further evolution
+     * @param p Particle to add for evoluting
+     */
+    void addParticle(const Particle &p) {
+        _all_particles.insert(_all_particles.end(), p);
     }
 
     // TODO: Сделать проход в цикле: для всех элементов из _all_particles
