@@ -42,3 +42,22 @@ bool MaterialDot::operator==(const MaterialDot &other) const {
 bool MaterialDot::operator!=(const MaterialDot &other) const {
     return !(*this == other);
 }
+
+
+// Redefinition of hash function
+namespace std {
+
+        std::size_t hash<MaterialDot>::operator() (const MaterialDot& dot) const
+        {
+            using std::size_t;
+            using std::hash;
+
+            // Compute individual hash values for first,
+            // second and third and combine them using XOR
+            // and bit shifting:
+
+            return ((hash<float>()(dot.getCoordinates().back())
+                     ^ (hash<float>()(dot.getVelocity().back()) << 1)) >> 1)
+                   ^ (hash<float>()(dot.getMass()) << 1);
+        }
+}

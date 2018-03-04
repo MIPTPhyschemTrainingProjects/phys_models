@@ -64,3 +64,8 @@ TEST(MaterialDot, checkEquality) {
     ASSERT_EQ(d1, d3);
     ASSERT_NE(d1, d2);
 }
+
+TEST(MaterialDot, hashing) {
+    MaterialDot d1(2, -5, 92, 12);
+    ASSERT_NO_THROW(std::hash<MaterialDot>()(d1));
+}

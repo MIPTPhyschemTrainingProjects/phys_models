@@ -74,5 +74,15 @@ public:
 
 };
 
+// Let's redefine hash function for MaterialDot object (for unordered set)
+namespace std {
+
+    template <>
+    struct hash<MaterialDot>
+    {
+        std::size_t operator() (const MaterialDot& dot) const;
+    };
+
+}
 
 #endif //PHYS_MODELS_MATERIAL_DOT_HPP
