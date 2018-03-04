@@ -21,6 +21,8 @@ template<typename Particle>
 class PhysicsHandler {
 private:
     std::list<Particle> _all_particles;
+    float _dt;
+    float _total_time;
 
 public:
     /**
