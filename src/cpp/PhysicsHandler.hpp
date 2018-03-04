@@ -7,6 +7,8 @@
 
 #include <array>
 #include <unordered_set>
+#include <algorithm>
+#include <list>
 
 
 /**
@@ -18,7 +20,7 @@
 template<typename Particle>
 class PhysicsHandler {
 private:
-    std::unordered_set<Particle> _all_particles;
+    std::list<Particle> _all_particles;
 
 public:
     /**
