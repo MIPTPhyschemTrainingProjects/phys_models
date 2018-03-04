@@ -68,6 +68,10 @@ public:
      */
     void evolute(const std::array<float, 3>& force, const float t);
 
+    bool operator==(const MaterialDot& other) const;
+
+    bool operator!=(const MaterialDot& other) const;
+
 };
 
 

@@ -32,3 +32,13 @@ void MaterialDot::evolute(const std::array<float, 3>& force, const float t) {
         velocity[i] += force[i]/m*t;
     }
 }
+
+bool MaterialDot::operator==(const MaterialDot &other) const {
+    return (m == other.getMass()
+            && velocity == other.getVelocity()
+            && coordinates == other.getCoordinates());
+}
+
+bool MaterialDot::operator!=(const MaterialDot &other) const {
+    return !(*this == other);
+}

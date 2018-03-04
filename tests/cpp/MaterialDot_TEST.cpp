@@ -55,3 +55,12 @@ TEST(MaterialDot, evoluteFromZeroVelocity) {
     ASSERT_EQ(dot1.getVelocity(), res_velocity1);
     ASSERT_EQ(dot1.getCoordinates(), res_coords1);
 }
+
+TEST(MaterialDot, checkEquality) {
+    MaterialDot d1(2, 3, -5, 9.9);
+    MaterialDot d2(-3, 5, 2, 2.9);
+    MaterialDot d3(2, 3, -5, 9.9);
+
+    ASSERT_EQ(d1, d3);
+    ASSERT_NE(d1, d2);
+}
