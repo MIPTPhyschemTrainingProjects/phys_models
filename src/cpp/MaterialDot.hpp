@@ -83,6 +83,11 @@ namespace std {
         std::size_t operator() (const MaterialDot& dot) const;
     };
 
+    template <>
+    struct hash<std::pair<MaterialDot, MaterialDot>> {
+        std::size_t operator() (const std::pair<MaterialDot, MaterialDot>& pair) const;
+    };
+
 }
 
 #endif //PHYS_MODELS_MATERIAL_DOT_HPP
