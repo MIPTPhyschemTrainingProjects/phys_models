@@ -6,9 +6,8 @@
 #define MATERIALDOT_TEST_PHYSICSHANDLER_HPP
 
 #include <array>
-#include <unordered_set>
 #include <algorithm>
-#include <list>
+#include <map>
 
 
 /**
@@ -20,7 +19,8 @@
 template<typename Particle>
 class PhysicsHandler {
 private:
-    std::list<Particle> _all_particles;
+    std::map<long, Particle> _numerated_particles;
+    long total_particles = 0;
     float _dt;
     float _total_time;
 
@@ -31,7 +31,18 @@ public:
      * @param p2 Second particle
      * @return Array of x, y, z components of force applied to the <u>first</u> particle
      */
-    virtual std::array<float, 3> getForce(Particle p1, Particle p2) = 0;
+    //virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const = 0;
+
+    // TODO: Это -- реализация только для тестирования.
+    // TODO: Этот getForce считает силу так, будто частицы соединены пружиной жесткости 0.4
+    virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const {
+        float k = 0.4;
+        std::array<float, 3> res = {0, 0, 0};
+        std::transform(p1.getCoordinates().begin(), p1.getCoordinates().end(),
+                       p2.getCoordinates().begin(), res.begin(), std::minus<float>());
+        std::transform(res.begin(), res.end(), res.begin(), std::bind1st(std::multiplies<float>(), -k));
+        return res;
+    }
 
     PhysicsHandler(float total_time, float dt): _total_time(total_time), _dt(dt)
     {}
@@ -41,17 +52,47 @@ public:
      * @param p Particle to add for evoluting
      */
     void addParticle(const Particle &p) {
-        _all_particles.insert(_all_particles.end(), p);
+        _numerated_particles.insert({total_particles++, p});
     }
 
-    // TODO: Сделать проход в цикле: для всех элементов из _all_particles
-    // TODO: подсчитать их силу взаимодействия с остальными, сохранить ее.
-    // TODO: После этого, уже в другом цикле: для всех частиц вызвать evolute() с высчитанной силой
-    // TODO: и временем, заданным при создании модели
-    // Чит код для паралелльного подсчета вот такой:
-    // #pragma omp parallel for
-    void makeEvolution() {
+    /**
+    * Get total number of particles in model
+    * @return Number of particles (type long)
+    */
+    long getCount() const noexcept { return total_particles; }
 
+    /**
+     * Get particle with <b>number</b>. Numbers start with 0
+     * @param number The number of a particle
+     * @return Reference to the particle
+     */
+    Particle& getParticle(long number) { return _numerated_particles.at(number); }
+
+    /**
+     * Make evolution for <b>dt</b> time (which was defined during Handler creation).
+     * This method counts all forces and moves all particles accordingly.
+     */
+    void makeEvolution() {
+        std::map<long, std::array<float, 3>> total_forces;
+
+        for(long i = 0; i < total_particles; i++) {
+            //#pragma omp parallel for
+            for(long j = i+1; j < total_particles; j++) {
+                std::array<float, 3> tmp_force = getForce(_numerated_particles[i], _numerated_particles[j]);
+
+                // Add force applied to the FIRST particle
+                total_forces[i] = tmp_force;
+                // Change force direction and add as the force applied to the SECOND particle
+                std::transform(tmp_force.begin(), tmp_force.end(), tmp_force.begin(),
+                               std::bind1st(std::multiplies<float>(), -1));
+                total_forces[j] = tmp_force;
+            }
+        }
+        // Now, let's evolute all the particles
+        //#pragma omp parallel for
+        for(long i = 0; i < total_particles; i++) {
+            _numerated_particles[i].evolute(total_forces[i], _dt);
+        }
     }
 };
 

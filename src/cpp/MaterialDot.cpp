@@ -60,4 +60,9 @@ namespace std {
                      ^ (hash<float>()(dot.getVelocity().back()) << 1)) >> 1)
                    ^ (hash<float>()(dot.getMass()) << 1);
         }
+
+        std::size_t hash<std::pair<MaterialDot, MaterialDot>>::operator()(
+            const std::pair<MaterialDot, MaterialDot> &pair) const {
+            return std::hash<MaterialDot>()(pair.first) ^ std::hash<MaterialDot>()(pair.second);
+        }
 }
