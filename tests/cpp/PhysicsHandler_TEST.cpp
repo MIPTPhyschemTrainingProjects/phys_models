@@ -27,6 +27,32 @@ TEST(PhysicsHandler, ParticleInteraction) {
     ASSERT_EQ(ph1.getForce(d1, d2), res_force);
 }
 
+TEST(PhysicsHandler, getParticlesCount) {
+    PhysicsHandler<MaterialDot> ph1(100, 0.1);
+    MaterialDot m1(-2, 5, 3, 3);
+    MaterialDot m2(-3, 2, 51, 2);
+    MaterialDot m3(-5, 23, 124, 1512);
+    ph1.addParticle(m1);
+    ASSERT_EQ(ph1.getCount(), 1);
+    ph1.addParticle(m2);
+    ASSERT_EQ(ph1.getCount(), 2);
+    ph1.addParticle(m3);
+    ASSERT_EQ(ph1.getCount(), 3);
+}
+
+TEST(PhysicsHandler, getParticle) {
+    PhysicsHandler<MaterialDot> ph1(100, 0.1);
+    MaterialDot m1(-2, 5, 3, 3);
+    MaterialDot m2(-3, 2, 51, 2);
+    MaterialDot m3(-5, 23, 124, 1512);
+    ph1.addParticle(m1);
+    ph1.addParticle(m2);
+    ph1.addParticle(m3);
+    ASSERT_EQ(ph1.getParticle(0), m1);
+    ASSERT_EQ(ph1.getParticle(1), m2);
+    ASSERT_EQ(ph1.getParticle(2), m3);
+}
+
 /*
 TEST(PhysicsHandler, ParticleMovement) {
     MaterialDot d1(2, 4, 5, 2);

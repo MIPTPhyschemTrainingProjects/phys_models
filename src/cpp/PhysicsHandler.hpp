@@ -20,7 +20,8 @@
 template<typename Particle>
 class PhysicsHandler {
 private:
-    std::list<Particle> _all_particles;
+    std::map<long, Particle> _numerated_particles;
+    long total_particles = 0;
     float _dt;
     float _total_time;
 
@@ -52,8 +53,21 @@ public:
      * @param p Particle to add for evoluting
      */
     void addParticle(const Particle &p) {
-        _all_particles.insert(_all_particles.end(), p);
+        _numerated_particles.insert({total_particles++, p});
     }
+
+    /**
+    * Get total number of particles in model
+    * @return Number of particles (type long)
+    */
+    long getCount() const noexcept { return total_particles; }
+
+    /**
+     * Get particle with <b>number</b>. Numbers start with 0
+     * @param number The number of a particle
+     * @return Reference to the particle
+     */
+    Particle& getParticle(long number) { return _numerated_particles.at(number); }
 
     // TODO: Сделать проход в цикле: для всех элементов из _all_particles
     // TODO: подсчитать их силу взаимодействия с остальными, сохранить ее.
