@@ -62,7 +62,3 @@ project(PhysicsHandler-TEST)
     add_executable(PhysicsHandler-test ${TESTS_DIR}/cpp/PhysicsHandler_TEST.cpp)
     target_link_libraries(PhysicsHandler-test MaterialDot-lib gtest_main)
     add_test(NAME PhysicsHandler-test COMMAND PhysicsHandler-test)
-
-project(SimpleTester)
-    add_executable(SimpleTester ${SOURCES_DIR}/cpp/SimpleTester.cpp)
-    target_link_libraries(SimpleTester MaterialDot-lib PhysicsHandler-lib)
