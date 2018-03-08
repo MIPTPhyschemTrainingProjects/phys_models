@@ -31,18 +31,7 @@ public:
      * @param p2 Second particle
      * @return Array of x, y, z components of force applied to the <u>first</u> particle
      */
-    //virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const = 0;
-
-    // TODO: Это -- реализация только для тестирования.
-    // TODO: Этот getForce считает силу так, будто частицы соединены пружиной жесткости 0.4
-    virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const {
-        float k = 0.4;
-        std::array<float, 3> res = {0, 0, 0};
-        std::transform(p1.getCoordinates().begin(), p1.getCoordinates().end(),
-                       p2.getCoordinates().begin(), res.begin(), std::minus<float>());
-        std::transform(res.begin(), res.end(), res.begin(), std::bind1st(std::multiplies<float>(), -k));
-        return res;
-    }
+    virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const = 0;
 
     PhysicsHandler(float total_time, float dt): _total_time(total_time), _dt(dt)
     {}
