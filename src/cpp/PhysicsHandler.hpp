@@ -18,7 +18,7 @@
  */
 template<typename Particle>
 class PhysicsHandler {
-private:
+protected:
     std::map<long, Particle> _numerated_particles;
     long total_particles = 0;
     float _dt;
