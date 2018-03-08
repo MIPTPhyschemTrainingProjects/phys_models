@@ -36,10 +36,11 @@ public:
     // TODO: Это -- реализация только для тестирования.
     // TODO: Этот getForce считает силу так, будто частицы соединены пружиной жесткости 0.4
     virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const {
+        float k = 0.4;
         std::array<float, 3> res = {0, 0, 0};
         std::transform(p1.getCoordinates().begin(), p1.getCoordinates().end(),
                        p2.getCoordinates().begin(), res.begin(), std::minus<float>());
-        std::transform(res.begin(), res.end(), res.begin(), std::bind1st(std::multiplies<float>(), 0.4));
+        std::transform(res.begin(), res.end(), res.begin(), std::bind1st(std::multiplies<float>(), -k));
         return res;
     }
 

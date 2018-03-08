@@ -23,7 +23,7 @@ TEST(PhysicsHandler, ParticleInteraction) {
     MaterialDot d1(2, 4, 5, 2);
     MaterialDot d2(-1, -2, -3, 5);
     PhysicsHandler<MaterialDot> ph1(100, 0.1);
-    std::array<float, 3> res_force = {3*0.4, 6*0.4, 8*0.4};
+    std::array<float, 3> res_force = {-3*0.4, -6*0.4, -8*0.4};
     ASSERT_EQ(ph1.getForce(d1, d2), res_force);
 }
 
