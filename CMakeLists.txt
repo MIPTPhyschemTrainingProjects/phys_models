@@ -39,7 +39,7 @@ project(phys_models)
 
 set(PVERSION 0.1)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -fopenmp")
 set(SOURCES_DIR src)
 set(TESTS_DIR tests)
 
