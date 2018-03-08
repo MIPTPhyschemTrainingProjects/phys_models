@@ -6,9 +6,8 @@
 #define MATERIALDOT_TEST_PHYSICSHANDLER_HPP
 
 #include <array>
-#include <unordered_set>
 #include <algorithm>
-#include <list>
+#include <map>
 
 
 /**
@@ -69,37 +68,32 @@ public:
      */
     Particle& getParticle(long number) { return _numerated_particles.at(number); }
 
-    // TODO: Сделать проход в цикле: для всех элементов из _all_particles
-    // TODO: подсчитать их силу взаимодействия с остальными, сохранить ее.
-    // TODO: После этого, уже в другом цикле: для всех частиц вызвать evolute() с высчитанной силой
-    // TODO: и временем, заданным при создании модели
-    // Чит код для паралелльного подсчета вот такой:
-    // #pragma omp parallel for
-    // TODO: Проверить прагму выше. Кажется, она не работает
-    // TODO: НЕ РАБОТАЕТ! НУЖНА РАБОТА!
-    /*
+    /**
+     * Make evolution for <b>dt</b> time (which was defined during Handler creation).
+     * This method counts all forces and moves all particles accordingly.
+     */
     void makeEvolution() {
-        std::vector<std::array<float, 3>> total_forces;
+        std::map<long, std::array<float, 3>> total_forces;
 
-        for(auto& it1 = _all_particles.begin(); it1 != _all_particles.end(); ++it1) {
-            #pragma omp parallel for
-            std::array<float, 3> total_force = {0, 0, 0};
-            for(auto& it2 = it1++; it2 != _all_particles.end(); ++it2) {
-                std::array<float, 3> tmp_force = getForce(*it1, *it2);
-                // Complicated std::array sum. I like C++
-                std::transform(total_force.begin(), total_force.end(),
-                               tmp_force.begin(), total_force.begin(), std::plus<float>());
+        for(long i = 0; i < total_particles; i++) {
+            //#pragma omp parallel for
+            for(long j = i+1; j < total_particles; j++) {
+                std::array<float, 3> tmp_force = getForce(_numerated_particles[i], _numerated_particles[j]);
+
+                // Add force applied to the FIRST particle
+                total_forces[i] = tmp_force;
+                // Change force direction and add as the force applied to the SECOND particle
+                std::transform(tmp_force.begin(), tmp_force.end(), tmp_force.begin(),
+                               std::bind1st(std::multiplies<float>(), -1));
+                total_forces[j] = tmp_force;
             }
-            total_forces.push_back(total_force);
         }
         // Now, let's evolute all the particles
-        #pragma omp parallel for
-        for(auto& it = _all_particles.end(); it != _all_particles.begin(); ++it) {
-            (*it).evolute(total_forces.back(), _dt);
-            total_forces.pop_back();
+        //#pragma omp parallel for
+        for(long i = 0; i < total_particles; i++) {
+            _numerated_particles[i].evolute(total_forces[i], _dt);
         }
     }
-     */
 };
 
 
