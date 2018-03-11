@@ -46,6 +46,18 @@ public:
     }
 
     /**
+     * Counts E2-distance between two particles.
+     * @param p1 First particle.
+     * @param p2 Second particle.
+     * @return Usual <i>Euclidean</i> distance between them.
+     */
+    float getParticlesDistance(const Particle& p1, const Particle& p2) const {
+        return sqrt(pow(p1.getCoordinates()[0] - p2.getCoordinates()[0], 2)
+                    + pow(p1.getCoordinates()[1] - p2.getCoordinates()[1], 2)
+                    + pow(p1.getCoordinates()[2] - p2.getCoordinates()[2], 2));
+    }
+
+    /**
     * Get total number of particles in model
     * @return Number of particles (type long)
     */
