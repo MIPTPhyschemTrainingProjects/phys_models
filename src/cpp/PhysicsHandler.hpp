@@ -34,7 +34,7 @@ public:
      */
     virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const = 0;
 
-    PhysicsHandler(float total_time, float dt): _total_time(total_time), _dt(dt)
+    PhysicsHandler(float total_time, float dt): _dt(dt), _total_time(total_time)
     {}
 
     /**
