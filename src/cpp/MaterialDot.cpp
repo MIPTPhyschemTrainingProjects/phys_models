@@ -4,29 +4,29 @@
 
 #include "MaterialDot.hpp"
 
-MaterialDot::MaterialDot(float x, float y, float z, float m):
+MaterialDot::MaterialDot(double x, double y, double z, double m):
         coordinates({x, y, z}), velocity({0, 0, 0}), m(m) {}
 
-MaterialDot::MaterialDot(float *coords, float m):
+MaterialDot::MaterialDot(double *coords, double m):
         coordinates({coords[0], coords[1], coords[2]}), velocity({0, 0, 0}), m(m) {}
 
-std::array<float, 3> MaterialDot::getCoordinates() const {
+std::array<double, 3> MaterialDot::getCoordinates() const {
     return coordinates;
 }
 
-std::array<float, 3> MaterialDot::getVelocity() const {
+std::array<double, 3> MaterialDot::getVelocity() const {
     return velocity;
 }
 
-void MaterialDot::setVelocity(std::array<float, 3> v) {
+void MaterialDot::setVelocity(std::array<double, 3> v) {
     velocity = v;
 }
 
-float MaterialDot::getMass() const {
+double MaterialDot::getMass() const {
     return m;
 }
 
-void MaterialDot::evolute(const std::array<float, 3>& force, const float t) {
+void MaterialDot::evolute(const std::array<double, 3>& force, const double t) {
     for(char i=0; i < 3; i++) {
         coordinates[i] += 0.5*force[i]/m*t*t + velocity[i]*t;
         velocity[i] += force[i]/m*t;
@@ -56,9 +56,9 @@ namespace std {
             // second and third and combine them using XOR
             // and bit shifting:
 
-            return ((hash<float>()(dot.getCoordinates().back())
-                     ^ (hash<float>()(dot.getVelocity().back()) << 1)) >> 1)
-                   ^ (hash<float>()(dot.getMass()) << 1);
+            return ((hash<double>()(dot.getCoordinates().back())
+                     ^ (hash<double>()(dot.getVelocity().back()) << 1)) >> 1)
+                   ^ (hash<double>()(dot.getMass()) << 1);
         }
 
         std::size_t hash<std::pair<MaterialDot, MaterialDot>>::operator()(
