@@ -2,8 +2,8 @@
 // Created by aleksei on 03.03.18.
 //
 
-#ifndef MATERIALDOT_TEST_PHYSICSHANDLER_HPP
-#define MATERIALDOT_TEST_PHYSICSHANDLER_HPP
+#ifndef PHYSICS_MODEL_HPP
+#define PHYSICS_MODEL_HPP
 
 #include <array>
 #include <algorithm>
@@ -18,7 +18,7 @@
  * Note: we assume that the interaction of the whole system can be split to two-particles action.
  */
 template<typename Particle>
-class PhysicsHandler {
+class PhysicsModel {
 protected:
     std::map<long, Particle> _numerated_particles;
     long total_particles = 0;
@@ -34,7 +34,7 @@ public:
      */
     virtual std::array<float, 3> getForce(const Particle &p1, const Particle &p2) const = 0;
 
-    PhysicsHandler(float total_time, float dt): _dt(dt), _total_time(total_time)
+    PhysicsModel(float total_time, float dt): _dt(dt), _total_time(total_time)
     {}
 
     /**
@@ -93,4 +93,4 @@ public:
 
 
 
-#endif //MATERIALDOT_TEST_PHYSICSHANDLER_HPP
+#endif //PHYSICS_MODEL_HPP
