@@ -8,6 +8,7 @@
 #include <array>
 #include <algorithm>
 #include <map>
+#include <omp.h>
 
 
 /**
@@ -65,8 +66,11 @@ public:
         std::map<long, std::array<float, 3>> total_forces;
 
         for(long i = 0; i < total_particles; i++) {
-            //#pragma omp parallel for
+            omp_lock_t lock;
+            omp_init_lock(&lock);
+            #pragma omp parallel for
             for(long j = i+1; j < total_particles; j++) {
+                omp_set_lock(&lock);
                 std::array<float, 3> tmp_force = getForce(_numerated_particles[i], _numerated_particles[j]);
 
                 // Add force applied to the FIRST particle
@@ -75,10 +79,12 @@ public:
                 std::transform(tmp_force.begin(), tmp_force.end(), tmp_force.begin(),
                                std::bind1st(std::multiplies<float>(), -1));
                 total_forces[j] = tmp_force;
+                omp_unset_lock(&lock);
             }
+            omp_destroy_lock(&lock);
         }
         // Now, let's evolute all the particles
-        //#pragma omp parallel for
+        #pragma omp parallel for
         for(long i = 0; i < total_particles; i++) {
             _numerated_particles[i].evolute(total_forces[i], _dt);
         }
