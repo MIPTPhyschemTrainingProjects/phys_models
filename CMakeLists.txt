@@ -66,3 +66,7 @@ project(Vector-test)
     add_executable(Vector-test ${TESTS_DIR}/cpp/Vector_TEST.cpp)
     target_link_libraries(Vector-test Vector-lib gtest_main)
     add_test(NAME Vector-tests COMMAND Vector-test)
+
+project(SpringModel)
+    add_executable(SpringModel ${SOURCES_DIR}/cpp/SpringModel.cpp)
+    target_link_libraries(SpringModel PhysicsModel-lib MaterialDot-lib)
