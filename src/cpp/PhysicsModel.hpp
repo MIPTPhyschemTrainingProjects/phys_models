@@ -10,6 +10,7 @@
 #include <map>
 #include <omp.h>
 #include <unordered_map>
+#include "Vector.hpp"
 
 
 /**
@@ -32,7 +33,7 @@ public:
      * @param p2 Second particle
      * @return Array of x, y, z components of force applied to the <u>first</u> particle
      */
-    virtual std::array<double, 3> getForce(const Particle &p1, const Particle &p2) const = 0;
+    virtual Vector& getForce(const Particle &p1, const Particle &p2) const = 0;
 
     explicit PhysicsModel(double dt): _dt(dt)
     {}
@@ -43,18 +44,6 @@ public:
      */
     void addParticle(const Particle &p) {
         _numerated_particles.insert({total_particles++, p});
-    }
-
-    /**
-     * Counts E2-distance between two particles.
-     * @param p1 First particle.
-     * @param p2 Second particle.
-     * @return Usual <i>Euclidean</i> distance between them.
-     */
-    double getParticlesDistance(const Particle& p1, const Particle& p2) const noexcept {
-        return sqrt(pow(p1.getCoordinates()[0] - p2.getCoordinates()[0], 2)
-                    + pow(p1.getCoordinates()[1] - p2.getCoordinates()[1], 2)
-                    + pow(p1.getCoordinates()[2] - p2.getCoordinates()[2], 2));
     }
 
     /**
@@ -75,8 +64,8 @@ public:
      * @return Map of (number, force_array), where <b>number</b> is particle number and <b>force_array</b>
      * is array of force acting on that particle
      */
-    std::unordered_map<unsigned long, std::array<double, 3>> _count_all_forces() const noexcept {
-        std::unordered_map<unsigned long, std::array<double, 3>> total_forces;
+    std::unordered_map<unsigned long, Vector> _count_all_forces() const noexcept {
+        std::unordered_map<unsigned long, Vector> total_forces;
 
         for(unsigned long i = 0; i < total_particles; i++) {
             omp_lock_t lock;
@@ -84,16 +73,12 @@ public:
             #pragma omp parallel
             for(unsigned long j = i+1; j < total_particles; j++) {
                 omp_set_lock(&lock);
-                std::array<double, 3> tmp_force = getForce(_numerated_particles.at(i), _numerated_particles.at(j));
+                Vector tmp_force = getForce(_numerated_particles.at(i), _numerated_particles.at(j));
 
                 // Add force applied to the FIRST particle
                 total_forces[i] = tmp_force;
                 // Change force direction and add as the force applied to the SECOND particle
-                for(int k = 0; k < 3; k++) {
-                    tmp_force[k] = -tmp_force[k];
-                }
-                //std::transform(tmp_force.begin(), tmp_force.end(), tmp_force.begin(),
-                //               std::bind1st(std::multiplies<double>(), -1.0));
+                tmp_force = -1 * tmp_force;
                 total_forces[j] = tmp_force;
                 omp_unset_lock(&lock);
             }
@@ -110,7 +95,7 @@ public:
         // Now, let's evolute all the particles
         double curr_time = 0;
         while(curr_time <= time) {
-            std::unordered_map<unsigned long, std::array<double, 3>> total_forces =  _count_all_forces();
+            std::unordered_map<unsigned long, Vector> total_forces =  _count_all_forces();
             #pragma omp parallel for
             for (unsigned long i = 0; i < total_particles; i++) {
                 _numerated_particles.at(i).evolute(total_forces.at(i), _dt);

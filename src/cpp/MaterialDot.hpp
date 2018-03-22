@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <array>
+#include "Vector.hpp"
 
 /**
  * Class describing material dot with mass
@@ -14,9 +15,9 @@
 class MaterialDot {
 private:
     /// Coordinates
-    std::array<double, 3> coordinates;
+    Vector coordinates;
     /// Velocity
-    std::array<double, 3> velocity;
+    Vector velocity;
     /// Mass
     double m = 1;
 public:
@@ -38,22 +39,22 @@ public:
     explicit MaterialDot(double* coords, double m=1);
 
     /**
-     * Get material dot coordinates as an array
-     * @return Array of doubles with copy of x, y, z coordinates respectively
+     * Get material dot coordinates as a <b>Vector</b>
+     * @return Vector of coordinates
      */
-    std::array<double, 3> getCoordinates() const noexcept;
+    Vector getCoordinates() const noexcept;
 
     /**
-     * Get material dot velocity as an array
-     * @return Array of doubles with copy of vx, vy, vz velocities respectively
+     * Get material dot velocity as a <b>Vector</b>
+     * @return Vector with velocitities
      */
-    std::array<double, 3> getVelocity() const noexcept;
+    Vector getVelocity() const noexcept;
 
     /**
      * Set material dot velocity from vector
-     * @param v vector of doubles containing vx, vy, vz to set
+     * @param v <b>Vector</b> containing vx, vy, vz to set
      */
-    void setVelocity(const std::array<double, 3> &v) noexcept;
+    void setVelocity(const Vector &v) noexcept;
 
     /**
      * Get material dot mass
@@ -66,7 +67,7 @@ public:
      * @param force Total force that acts on the dot
      * @param t Time period of the force action
      */
-    void evolute(const std::array<double, 3>& force, double t);
+    void evolute(const Vector &force, double t);
 
     bool operator==(const MaterialDot& other) const;
 

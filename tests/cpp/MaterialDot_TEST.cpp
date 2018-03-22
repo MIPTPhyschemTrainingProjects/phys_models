@@ -13,7 +13,7 @@ TEST(MaterialDot, getCoordinates) {
     MaterialDot a(2, 3, -2);
     int coords[] = {2, 3, -2};
     for(int i = 0; i < 2; i++) {
-        ASSERT_EQ(a.getCoordinates().at(i), coords[i]);
+        ASSERT_EQ(a.getCoordinates().toArray().at(i), coords[i]);
     }
 }
 
@@ -21,7 +21,7 @@ TEST(MaterialDot, createWith_array) {
     double p[3] = {-2, 100, -33};
     MaterialDot dot(p);
     std::array<double, 3> res = {-2, 100, -33};
-    ASSERT_EQ(dot.getCoordinates(), res);
+    ASSERT_EQ(dot.getCoordinates().toArray(), res);
 }
 
 TEST(MaterialDot, getVelocity_and_setVelocity) {
@@ -29,7 +29,7 @@ TEST(MaterialDot, getVelocity_and_setVelocity) {
     MaterialDot dot(p);
     std::array<double, 3> v = {-11, 52, -22};
     dot.setVelocity(v);
-    ASSERT_TRUE(dot.getVelocity() == v);
+    ASSERT_TRUE(dot.getVelocity().toArray() == v);
 }
 
 TEST(MaterialDot, getMass) {
@@ -43,17 +43,17 @@ TEST(MaterialDot, evoluteFromZeroVelocity) {
     dot.evolute(force, 2);
     std::array<double, 3> res_coords = {3, 1, -1};
     std::array<double, 3> res_vel = {-2, -4, -6};
-    ASSERT_EQ(dot.getCoordinates(), res_coords);
-    ASSERT_EQ(dot.getVelocity(), res_vel);
+    ASSERT_EQ(dot.getCoordinates().toArray(), res_coords);
+    ASSERT_EQ(dot.getVelocity().toArray(), res_vel);
 
     MaterialDot dot1(-1, -2, -3, 5);
     std::array<double, 3> force1 = {5, 2, -4};
     double t = 5;
     std::array<double, 3> res_coords1 = {11.5, 3, -13};
     std::array<double, 3> res_velocity1 = {5, 2, -4};
-    dot1.evolute(force1, t);
-    ASSERT_EQ(dot1.getVelocity(), res_velocity1);
-    ASSERT_EQ(dot1.getCoordinates(), res_coords1);
+    dot1.evolute(Vector(force1), t);
+    ASSERT_EQ(dot1.getVelocity().toArray(), res_velocity1);
+    ASSERT_EQ(dot1.getCoordinates().toArray(), res_coords1);
 }
 
 TEST(MaterialDot, checkEquality) {

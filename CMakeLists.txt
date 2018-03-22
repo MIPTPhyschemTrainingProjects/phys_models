@@ -48,10 +48,11 @@ include_directories(${TESTS_DIR}/cpp)
 
 project(MaterialDot-lib)
     add_library(MaterialDot-lib ${SOURCES_DIR}/cpp/MaterialDot.cpp)
+    target_link_libraries(MaterialDot-lib Vector-lib)
 
 project(MaterialDot-test)
     add_executable(MaterialDot-test ${TESTS_DIR}/cpp/MaterialDot_TEST.cpp)
-    target_link_libraries(MaterialDot-test MaterialDot-lib gtest_main)
+    target_link_libraries(MaterialDot-test MaterialDot-lib gtest_main Vector-lib)
     add_test(NAME MaterialDot-tests COMMAND MaterialDot-test)
 
 project(PhysicsModel)
