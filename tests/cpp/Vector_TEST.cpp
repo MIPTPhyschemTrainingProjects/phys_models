@@ -34,3 +34,9 @@ TEST(Vector_basics, CalculatingNorma) {
         }
     }
 }
+
+TEST(Vector_to_other_types, toArray) {
+    Vector v1 = {3, -1, 2};
+    std::array<double, 3> arr = {3, -1, 2};
+    ASSERT_EQ(v1.toArray(), arr);
+}
