@@ -10,19 +10,19 @@ MaterialDot::MaterialDot(double x, double y, double z, double m):
 MaterialDot::MaterialDot(double *coords, double m):
         coordinates({coords[0], coords[1], coords[2]}), velocity({0, 0, 0}), m(m) {}
 
-std::array<double, 3> MaterialDot::getCoordinates() const {
+std::array<double, 3> MaterialDot::getCoordinates() const noexcept {
     return coordinates;
 }
 
-std::array<double, 3> MaterialDot::getVelocity() const {
+std::array<double, 3> MaterialDot::getVelocity() const noexcept {
     return velocity;
 }
 
-void MaterialDot::setVelocity(std::array<double, 3> v) {
+void MaterialDot::setVelocity(const std::array<double, 3> &v) noexcept {
     velocity = v;
 }
 
-double MaterialDot::getMass() const {
+double MaterialDot::getMass() const noexcept {
     return m;
 }
 

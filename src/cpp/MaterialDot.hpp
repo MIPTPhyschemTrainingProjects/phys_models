@@ -41,32 +41,32 @@ public:
      * Get material dot coordinates as an array
      * @return Array of doubles with copy of x, y, z coordinates respectively
      */
-    std::array<double, 3> getCoordinates() const;
+    std::array<double, 3> getCoordinates() const noexcept;
 
     /**
      * Get material dot velocity as an array
      * @return Array of doubles with copy of vx, vy, vz velocities respectively
      */
-    std::array<double, 3> getVelocity() const;
+    std::array<double, 3> getVelocity() const noexcept;
 
     /**
      * Set material dot velocity from vector
      * @param v vector of doubles containing vx, vy, vz to set
      */
-    void setVelocity(std::array<double, 3> v);
+    void setVelocity(const std::array<double, 3> &v) noexcept;
 
     /**
      * Get material dot mass
      * @return Mass of the dot
      */
-    double getMass() const;
+    double getMass() const noexcept;
 
     /**
      * Make the dot move in accordance with given <b>force</b> and <b>time</b>
      * @param force Total force that acts on the dot
      * @param t Time period of the force action
      */
-    void evolute(const std::array<double, 3>& force, const double t);
+    void evolute(const std::array<double, 3>& force, double t);
 
     bool operator==(const MaterialDot& other) const;
 
