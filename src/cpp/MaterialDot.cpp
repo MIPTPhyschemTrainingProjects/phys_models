@@ -4,11 +4,17 @@
 
 #include "MaterialDot.hpp"
 
-MaterialDot::MaterialDot(double x, double y, double z, double m):
-        coordinates(new double[3]{x, y, z}), velocity(new double[3]{0.0, 0.0, 0.0}), m(m) {}
+MaterialDot::MaterialDot(double x, double y, double z, double _m) {
+    coordinates = {x, y, z};
+    velocity = {0, 0, 0};
+    m = _m;
+}
 
-MaterialDot::MaterialDot(double *coords, double m):
-        coordinates(new double[3]{coords[0], coords[1], coords[2]}), velocity(new double[3]{0, 0, 0}), m(m) {}
+MaterialDot::MaterialDot(const double *coords, double _m) {
+    coordinates = {coords[0], coords[1], coords[2]};
+    velocity = {0, 0, 0};
+    m = _m;
+}
 
 Vector MaterialDot::getCoordinates() const noexcept {
     return coordinates;

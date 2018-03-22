@@ -36,7 +36,7 @@ public:
     * that will be considered as initial coordinates
     * @param m means mass of a dot
     */
-    explicit MaterialDot(double* coords, double m=1);
+    explicit MaterialDot(const double* coords, double m=1);
 
     /**
      * Get material dot coordinates as a <b>Vector</b>
