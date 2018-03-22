@@ -67,3 +67,18 @@ bool Vector::operator==(const Vector &other) const noexcept {
 bool Vector::operator!=(const Vector &other) const noexcept {
     return !((*this) == other);
 }
+
+Vector Vector::operator+=(const Vector &other) noexcept {
+    (*this) = (*this) + other;
+    return *this;
+}
+
+Vector Vector::operator-=(const Vector &other) noexcept {
+    *this = (*this) - other;
+    return *this;
+}
+
+Vector Vector::operator*=(double k) noexcept {
+    *this = (*this)*k;
+    return *this;
+}

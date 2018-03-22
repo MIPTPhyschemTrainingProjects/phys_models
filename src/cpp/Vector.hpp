@@ -72,6 +72,9 @@ public:
     Vector operator*(double k) const noexcept;
     bool operator==(const Vector &other) const noexcept;
     bool operator!=(const Vector &other) const noexcept;
+    Vector operator+=(const Vector &other) noexcept;
+    Vector operator-=(const Vector &other) noexcept;
+    Vector operator*=(double k) noexcept;
 };
 
 Vector operator*(double k, const Vector &v) noexcept;

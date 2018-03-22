@@ -86,3 +86,14 @@ TEST(Vector_arithmetics, vecMultVec) {
     Vector res = {15-2, 1-6, 4-5};
     ASSERT_EQ(v1^v2, res);
 }
+
+TEST(Vector_arithmetics, vecCoolOperators) {
+    Vector v1 = {2, 5, 3};
+    Vector v2 = {1, 2, 3};
+    ASSERT_EQ(v1 *= 2, Vector(4, 10, 6));
+    ASSERT_EQ(v1, Vector(4, 10, 6));
+    ASSERT_EQ(v1 += v2, Vector(5, 12, 9));
+    ASSERT_EQ(v1, Vector(5, 12, 9));
+    ASSERT_EQ(v1 -= v2, Vector(4, 10, 6));
+    ASSERT_EQ(v1, Vector(4, 10, 6));
+}
