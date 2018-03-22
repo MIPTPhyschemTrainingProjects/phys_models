@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <map>
 #include <omp.h>
+#include <unordered_map>
 
 
 /**
@@ -74,8 +75,8 @@ public:
      * @return Map of (number, force_array), where <b>number</b> is particle number and <b>force_array</b>
      * is array of force acting on that particle
      */
-    std::map<unsigned long, std::array<double, 3>>& _count_all_forces() const noexcept {
-        std::map<unsigned long, std::array<double, 3>> total_forces;
+    std::unordered_map<unsigned long, std::array<double, 3>> _count_all_forces() const noexcept {
+        std::unordered_map<unsigned long, std::array<double, 3>> total_forces;
 
         for(unsigned long i = 0; i < total_particles; i++) {
             omp_lock_t lock;
@@ -83,7 +84,7 @@ public:
             #pragma omp parallel
             for(unsigned long j = i+1; j < total_particles; j++) {
                 omp_set_lock(&lock);
-                std::array<double, 3> tmp_force = getForce(_numerated_particles[i], _numerated_particles[j]);
+                std::array<double, 3> tmp_force = getForce(_numerated_particles.at(i), _numerated_particles.at(j));
 
                 // Add force applied to the FIRST particle
                 total_forces[i] = tmp_force;
@@ -107,12 +108,12 @@ public:
      */
     void makeEvolution(double time=1.0) {
         // Now, let's evolute all the particles
-        std::map<unsigned long, std::array<double, 3>> total_forces =  _count_all_forces();
         double curr_time = 0;
         while(curr_time <= time) {
+            std::unordered_map<unsigned long, std::array<double, 3>> total_forces =  _count_all_forces();
             #pragma omp parallel for
-            for (long i = 0; i < total_particles; i++) {
-                _numerated_particles[i].evolute(total_forces[i], _dt);
+            for (unsigned long i = 0; i < total_particles; i++) {
+                _numerated_particles.at(i).evolute(total_forces.at(i), _dt);
             }
             curr_time += _dt;
         }
