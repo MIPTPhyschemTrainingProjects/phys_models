@@ -57,3 +57,11 @@ project(MaterialDot-test)
 project(PhysicsModel)
     add_library(PhysicsModel-lib ${SOURCES_DIR}/cpp/PhysicsModel.hpp)
     set_target_properties(PhysicsModel-lib PROPERTIES LINKER_LANGUAGE CXX)
+
+project(Vector-lib)
+    add_library(Vector-lib ${SOURCES_DIR}/cpp/Vector.cpp)
+
+project(Vector-test)
+    add_executable(Vector-test ${TESTS_DIR}/cpp/Vector_TEST.cpp)
+    target_link_libraries(Vector-test Vector-lib gtest_main)
+    add_test(NAME Vector-tests COMMAND Vector-test)
