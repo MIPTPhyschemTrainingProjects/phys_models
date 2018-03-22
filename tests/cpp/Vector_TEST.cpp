@@ -40,3 +40,49 @@ TEST(Vector_to_other_types, toArray) {
     std::array<double, 3> arr = {3, -1, 2};
     ASSERT_EQ(v1.toArray(), arr);
 }
+
+TEST(Vector_arithmetics, sumVectors) {
+    Vector v1 = {2, 5, 1};
+    Vector v2 = {-12, 3, -52};
+    Vector res = {-10, 8, -51};
+    ASSERT_EQ(v1 + v2, res);
+    ASSERT_EQ(v2 + v1, res);
+}
+
+TEST(Vector_arithmetics, subVectors) {
+    Vector v1 = {2, 5, 1};
+    Vector v2 = {-12, 3, -52};
+    Vector res1 = {14, 2, 53};
+    Vector res2 = {-14, -2, -53};
+    ASSERT_EQ(v1 - v2, res1);
+    ASSERT_EQ(v2 - v1, res2);
+}
+
+TEST(Vector_arithmetics, multVectors) {
+    Vector v1 = {2, 5, 1};
+    Vector v2 = {-12, 3, -52};
+    double res = -61;
+    ASSERT_EQ(v1*v2, res);
+    ASSERT_EQ(v2*v1, res);
+}
+
+TEST(Vector_arithmetics, multVector_by_double) {
+    Vector v1 = {2, 5, 1};
+    double k = 2;
+    Vector res = {4, 10, 2};
+    ASSERT_EQ(v1*k, res);
+}
+
+TEST(Vector_arithmetics, mult_double_by_vector) {
+    Vector v1 = {2, 5, 1};
+    double k = -2;
+    Vector res = {-4, -10, -2};
+    ASSERT_EQ(k*v1, res);
+}
+
+TEST(Vector_arithmetics, vecMultVec) {
+    Vector v1 = {2, 5, 1};
+    Vector v2 = {1, 2, 3};
+    Vector res = {15-2, 1-6, 4-5};
+    ASSERT_EQ(v1^v2, res);
+}

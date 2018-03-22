@@ -64,7 +64,17 @@ public:
      * @return std::array<double, 3> with coordinates
      */
     std::array<double, 3> toArray() const noexcept;
+
+    Vector operator+(const Vector &other) const noexcept;
+    Vector operator-(const Vector &other) const noexcept;
+    double operator*(const Vector &other) const noexcept;
+    Vector operator^(const Vector &other) const noexcept;
+    Vector operator*(double k) const noexcept;
+    bool operator==(const Vector &other) const noexcept;
+    bool operator!=(const Vector &other) const noexcept;
 };
+
+Vector operator*(double k, const Vector &v) noexcept;
 
 
 #endif //PHYS_MODELS_VECTOR_HPP

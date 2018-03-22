@@ -35,3 +35,35 @@ std::array<double, 3> Vector::toArray() const noexcept {
     std::array<double, 3> res = {_x, _y, _z};
     return res;
 }
+
+Vector Vector::operator+(const Vector &other) const noexcept {
+    return {_x + other._x, _y + other._y, _z + other._z};
+}
+
+Vector Vector::operator-(const Vector &other) const noexcept {
+    return {_x - other._x, _y - other._y, _z - other._z};
+}
+
+double Vector::operator*(const Vector &other) const noexcept {
+    return _x*other._x + _y*other._y + _z*other._z;
+}
+
+Vector Vector::operator^(const Vector &other) const noexcept {
+    return {_y*other._z - _z*other._y, _z*other._x - _x*other._z, _x*other._y - _y*other._x};
+}
+
+Vector Vector::operator*(double k) const noexcept {
+    return {_x*k, _y*k, _z*k};
+}
+
+Vector operator*(double k, const Vector &v) noexcept {
+    return {v.getX()*k, v.getY()*k, v.getZ()*k};
+}
+
+bool Vector::operator==(const Vector &other) const noexcept {
+    return (_x == other._x)&(_y == other._y)&(_z == other._z);
+}
+
+bool Vector::operator!=(const Vector &other) const noexcept {
+    return !((*this) == other);
+}
