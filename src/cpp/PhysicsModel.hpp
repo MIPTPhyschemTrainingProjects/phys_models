@@ -33,7 +33,7 @@ public:
      * @param p2 Second particle
      * @return Array of x, y, z components of force applied to the <u>first</u> particle
      */
-    virtual Vector& getForce(const Particle &p1, const Particle &p2) const = 0;
+    virtual Vector getForce(const Particle &p1, const Particle &p2) const = 0;
 
     explicit PhysicsModel(double dt): _dt(dt)
     {}
