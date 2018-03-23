@@ -90,6 +90,8 @@ public:
     /**
      * Make evolution for <b>dt</b> time (which was defined during Handler creation).
      * This method counts all forces and moves all particles accordingly.
+     *
+     * Note that this method <u>does not</u> store any evolution results anywhere
      */
     void makeEvolution(double time=1.0) {
         // Now, let's evolute all the particles
@@ -102,6 +104,20 @@ public:
             }
             curr_time += _dt;
         }
+    }
+
+
+    /**
+     * Watch our <i>model</i> evolution for <b>time</b> and write results to csv-file on the go.
+     * @param time Total time for model evolution
+     * @param coords_file_name Output file for <i>coordinates</i> (all previous contents are <u>lost</u>)
+     * @param vel_file_name Output file for <i>velocities</i> (all previous contents are <u>lost</u>)
+     * @param save_to_memory When <b>true</b>, all evolution data will be stored in this class (in memory, alongside wtih csv-file)
+     */
+    void trackEvolution(double time,
+                        const std::string &coords_file_name="out-coordinates.csv",
+                        const std::string &vel_file_name="out-velocities.csv", bool save_to_memory=false) {
+
     }
 };
 
