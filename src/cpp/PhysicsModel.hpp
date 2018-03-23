@@ -170,7 +170,9 @@ public:
      * @param vel_file_name Output file for <i>velocities</i> (all previous contents are <u>lost</u>)
      * @param save_to_memory When <b>true</b>, all evolution data will be stored in this class (in memory, alongside wtih csv-file)
      */
-    void trackEvolution(double time, bool save_to_memory=false,
+    // TODO: Сделайте так, чтобы можно было сохранять статистику непосредственно в файл, без оперативки.
+    // TODO: Я пробовал это сделать в ветке 'test_csv_multithread', но из-за мультипоточности все пошло по плохим местам.
+    void trackEvolution(double time, bool save_to_memory=true,
                         const std::string &coords_file_name="out-coordinates.csv",
                         const std::string &vel_file_name="out-velocities.csv") {
         double curr_time = 0;
