@@ -11,10 +11,13 @@
 #include <omp.h>
 #include <unordered_map>
 #include <deque>
+#include <fstream>
 #include "Vector.hpp"
 
 
 struct ModelStates {
+
+    unsigned long _total_iterations = 0;
 
     struct ParticlesInfo {
         /// Coordinates and velocities for all particles
@@ -65,7 +68,7 @@ struct ModelStates {
      * Adds <b>ParticlesInfo</b> to statistics
      * @param info <b>ParticlesInfo</b> to be added
      */
-    void addInfo(const ParticlesInfo &info) { _all_states.push_back(info); }
+    void addInfo(const ParticlesInfo &info) { _all_states.push_back(info); _total_iterations++;}
 };
 
 /**
@@ -202,6 +205,31 @@ public:
                 curr_time += _dt;
             }
         }
+    }
+
+    /**
+     * Exports all statistics in memory to csv file.
+     *
+     * csv-file has structure:
+     *
+     * <b>iteration number</b> || <b>particle number</b> || <b>x</b> || <b>y</b> || <b>z</b> || <b>v_x</b> || <b>v_y</b> || <b>v_z</b>
+     * @param file_name Output file name
+     */
+    void exportStatistics(const std::string &file_name="out_stats.csv") {
+        std::ofstream out_file;
+        out_file.open(file_name, std::ios::out | std::ios::app);
+        // Schema for csv
+        out_file << "iter_number,particle_number,x,y,z,v_x,v_y,v_z" << std::endl;
+        for(unsigned long iter = 0; iter < statistics._total_iterations; iter++) {
+            for(unsigned long p = 0; p < total_particles; p++) {
+                Vector c = statistics.atIteration(iter).getParticleCoordinates(p);
+                Vector v = statistics.atIteration(iter).getParticleVelocity(p);
+                out_file << iter << ',' << p << ','
+                         << c.getX() << ',' << c.getY() << ',' << c.getZ() << ','
+                         << v.getX() << ',' << v.getY() << ',' << v.getZ() << std::endl;
+            }
+        }
+        out_file.close();
     }
 };
 
