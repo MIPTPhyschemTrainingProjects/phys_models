@@ -27,6 +27,7 @@ int main() {
     double total_time = 1.2;
     model.addParticle(md1);
     model.addParticle(md2);
-    model.makeEvolution(total_time);
+    //model.makeEvolution(total_time);
+    model.trackEvolution(100, "1", "2", true);
     std::cout << model.getParticle(0).getCoordinates().toArray().at(0) << std::endl;
 }

@@ -10,6 +10,7 @@
 #include <map>
 #include <omp.h>
 #include <unordered_map>
+#include <deque>
 #include "Vector.hpp"
 
 
@@ -25,6 +26,11 @@ protected:
     std::map<unsigned long, Particle> _numerated_particles;
     unsigned long total_particles = 0;
     double _dt;
+    std::deque<
+            std::map<unsigned long,
+                    std::array<Vector, 2>
+            >
+    > _all_states;
 
 public:
     /**
@@ -117,7 +123,34 @@ public:
     void trackEvolution(double time,
                         const std::string &coords_file_name="out-coordinates.csv",
                         const std::string &vel_file_name="out-velocities.csv", bool save_to_memory=false) {
-
+        double curr_time = 0;
+        if(!save_to_memory) {
+            while (curr_time <= time) {
+                std::unordered_map<unsigned long, Vector> total_forces = _count_all_forces();
+                #pragma omp parallel for
+                for (unsigned long i = 0; i < total_particles; i++) {
+                    _numerated_particles.at(i).evolute(total_forces.at(i), _dt);
+                }
+                curr_time += _dt;
+            }
+        } else {
+            while (curr_time <= time) {
+                std::unordered_map<unsigned long, Vector> total_forces = _count_all_forces();
+                std::map<unsigned long, std::array<Vector, 2>> tmp;
+                for (unsigned long i = 0; i < total_particles; i++) {
+                    std::array<Vector, 2> _two_vec = {_numerated_particles.at(i).getCoordinates(),
+                                                      _numerated_particles.at(i).getVelocity()};
+                    tmp.insert({i, _two_vec});
+                }
+                _all_states.push_back(tmp);
+                #pragma omp parallel for
+                for (unsigned long i = 0; i < total_particles; i++) {
+                    _numerated_particles.at(i).evolute(total_forces.at(i), _dt);
+                }
+                curr_time += _dt;
+            }
+        }
+        std::cout << "Done\n";
     }
 };
 
