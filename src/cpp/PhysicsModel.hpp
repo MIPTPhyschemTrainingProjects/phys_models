@@ -213,11 +213,14 @@ public:
      * csv-file has structure:
      *
      * <b>iteration number</b> || <b>particle number</b> || <b>x</b> || <b>y</b> || <b>z</b> || <b>v_x</b> || <b>v_y</b> || <b>v_z</b>
-     * @param file_name Output file name
+     * @param file_name Output file name. Appends to file contents, so make sure that the file is clear!
      */
-    void exportStatistics(const std::string &file_name="out_stats.csv") {
+    bool exportStatistics(const std::string &file_name="out_stats.csv") {
         std::ofstream out_file;
         out_file.open(file_name, std::ios::out | std::ios::app);
+        // In case something went wrong
+        if(!out_file.is_open())
+            return false;
         // Schema for csv
         out_file << "iter_number,particle_number,x,y,z,v_x,v_y,v_z" << std::endl;
         for(unsigned long iter = 0; iter < statistics._total_iterations; iter++) {
@@ -230,6 +233,7 @@ public:
             }
         }
         out_file.close();
+        return true;
     }
 };
 
