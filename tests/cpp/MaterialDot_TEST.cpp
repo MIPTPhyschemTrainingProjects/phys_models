@@ -24,6 +24,15 @@ TEST(MaterialDot, createWith_array) {
     ASSERT_EQ(dot.getCoordinates().toArray(), res);
 }
 
+TEST(MaterialDot, createWith_std_array) {
+    std::array<double, 3> a = {1, 2, 3};
+    MaterialDot d1(a);
+    Vector res = {1, 2, 3};
+    ASSERT_EQ(d1.getCoordinates(), res);
+    MaterialDot d2(res);
+    ASSERT_EQ(d2.getCoordinates(), res);
+}
+
 TEST(MaterialDot, getVelocity_and_setVelocity) {
     double p[3] = {-5, 10, -20};
     MaterialDot dot(p);

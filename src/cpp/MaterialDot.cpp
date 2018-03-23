@@ -47,6 +47,12 @@ bool MaterialDot::operator!=(const MaterialDot &other) const {
     return !(*this == other);
 }
 
+MaterialDot::MaterialDot(const std::array<double, 3> &coords, double m): coordinates(Vector(coords)), m(m)
+{}
+
+MaterialDot::MaterialDot(const Vector &v, double m): coordinates(v), m(m)
+{}
+
 
 // Redefinition of hash function
 namespace std {

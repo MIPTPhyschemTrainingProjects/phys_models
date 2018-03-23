@@ -38,6 +38,10 @@ public:
     */
     explicit MaterialDot(const double* coords, double m=1);
 
+    explicit MaterialDot(const std::array<double, 3> &coords, double m=1);
+
+    explicit MaterialDot(const Vector& v, double m=1);
+
     /**
      * Get material dot coordinates as a <b>Vector</b>
      * @return Vector of coordinates
