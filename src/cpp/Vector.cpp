@@ -13,12 +13,8 @@ Vector::Vector(const std::array<double, 3> &vec) noexcept: _x(vec.at(0)), _y(vec
                                                            _norm(sqrt(_x*_x+_y*_y+_z*_z))
 {}
 
-Vector::Vector(const double* coords) {
-    _x = *coords;
-    _y = *(coords+1);
-    _z = *(coords+2);
-    _norm = sqrt(_x*_x+_y*_y+_z*_z);
-}
+Vector::Vector(const double* coords): _x(*coords++), _y(*coords++), _z(*coords), _norm(sqrt(_x*_x+_y*_y+_z*_z))
+{}
 
 Vector::Vector(): _x(0), _y(0), _z(0), _norm(0)
 {}
