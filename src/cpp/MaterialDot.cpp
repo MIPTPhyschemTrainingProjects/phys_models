@@ -11,25 +11,17 @@ MaterialDot::MaterialDot(double x, double y, double z, double _m): coordinates(V
 MaterialDot::MaterialDot(const double *coords, double _m): coordinates(Vector(coords)), m(_m)
 {}
 
-Vector MaterialDot::getCoordinates() const noexcept {
-    return coordinates;
-}
+Vector MaterialDot::getCoordinates() const noexcept { return coordinates; }
 
-Vector MaterialDot::getVelocity() const noexcept {
-    return velocity;
-}
+Vector MaterialDot::getVelocity() const noexcept { return velocity; }
 
-void MaterialDot::setVelocity(const Vector &v) noexcept {
-    velocity = v;
-}
+void MaterialDot::setVelocity(const Vector &v) noexcept { velocity = v; }
 
-double MaterialDot::getMass() const noexcept {
-    return m;
-}
+double MaterialDot::getMass() const noexcept { return m; }
 
 void MaterialDot::evolute(const Vector& force, const double t) {
-    coordinates = coordinates + 0.5/m*t*t*force + velocity*t;
-    velocity = velocity + t/m*force;
+    coordinates += 0.5/m*t*t*force + velocity*t;
+    velocity += t/m*force;
 }
 
 bool MaterialDot::operator==(const MaterialDot &other) const {
