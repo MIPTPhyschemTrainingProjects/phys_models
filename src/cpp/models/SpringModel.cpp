@@ -29,5 +29,5 @@ int main() {
     model.addParticle(md2);
     //model.makeEvolution(total_time);
     model.trackEvolution(100, true);
-    std::cout << model.getParticle(0).getCoordinates().toArray().at(0) << std::endl;
+    model.exportStatistics();
 }
