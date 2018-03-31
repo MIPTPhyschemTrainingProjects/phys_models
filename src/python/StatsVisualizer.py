@@ -52,7 +52,7 @@ class StatsVisualizer:
 
 
 #TODO: Перепиши меня с использованием ООП и регистрацией команд!!!!
-class GUI:
+class CLI:
 
     def __init__(self):
         self.visualizer = None
@@ -63,7 +63,7 @@ class GUI:
 
     @staticmethod
     def _print_usage():
-        GUI._print_delimiter()
+        CLI._print_delimiter()
         print("Интерактивная визуализация природных моделей v.{}. Выберете опцию:".format(PROJECT_VERSION))
         print("1. Считать файл со статистикой")
         print("2. Создать график двух величин")
@@ -72,14 +72,14 @@ class GUI:
         print("q. Выйти")
         print("?. Вывести это меню еще раз")
         available_options = ['1', '2', '3', '4', 'q', '?']
-        GUI._print_delimiter()
+        CLI._print_delimiter()
         return available_options
 
 
     @staticmethod
     def _print_go_to_menu(msg):
         print("{}. Возврат в главное меню...".format(msg))
-        GUI._print_delimiter()
+        CLI._print_delimiter()
 
     @staticmethod
     def _read_file():
@@ -131,35 +131,35 @@ class GUI:
 
     def _main_loop(self):
         while True:
-            available_options = GUI._print_usage()
+            available_options = CLI._print_usage()
             opt = input()
             if opt not in available_options:
-                GUI._print_go_to_menu("Некорректный выбор опции")
+                CLI._print_go_to_menu("Некорректный выбор опции")
             if opt == '1':
-                self.visualizer = GUI._read_file()
+                self.visualizer = CLI._read_file()
                 if self.visualizer is not None:
-                    GUI._print_go_to_menu("Файл считан")
+                    CLI._print_go_to_menu("Файл считан")
                 else:
-                    GUI._print_go_to_menu("Файл НЕ считан")
+                    CLI._print_go_to_menu("Файл НЕ считан")
             elif opt == '2':
-                x_var, y_var, particle_number = GUI._read_vars()
+                x_var, y_var, particle_number = CLI._read_vars()
                 if x_var is None:
-                    GUI._print_go_to_menu("Нет значений")
+                    CLI._print_go_to_menu("Нет значений")
                 else:
                     print("Значения установлены")
                     print("Создаем график...")
                     if self.visualizer is None:
-                        GUI._print_go_to_menu("Сначала нужно считать файл со статистикой")
+                        CLI._print_go_to_menu("Сначала нужно считать файл со статистикой")
                         continue
                     self.visualizer.create_plot(x_var, y_var, particle_number)
-                    GUI._print_go_to_menu("График готов")
+                    CLI._print_go_to_menu("График готов")
             elif opt == '3':
                 print("Рисуем график...")
                 if self.visualizer is None:
-                    GUI._print_go_to_menu("Сначала нужно считать файл со статистикой")
+                    CLI._print_go_to_menu("Сначала нужно считать файл со статистикой")
                     continue
                 self.visualizer.show_plot()
-                GUI._print_go_to_menu("График был показан")
+                CLI._print_go_to_menu("График был показан")
             elif opt == '4':
                 print("Введите путь для выходного файла ...")
                 out_path = input()
@@ -176,5 +176,5 @@ class GUI:
 
 
 if __name__ == "__main__":
-    gui = GUI()
-    gui.start()
+    cli = CLI()
+    cli.start()
