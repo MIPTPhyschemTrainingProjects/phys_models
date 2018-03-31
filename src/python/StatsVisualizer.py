@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
+PROJECT_VERSION = '0.1.0'
+
 
 class StatsVisualizer:
     
