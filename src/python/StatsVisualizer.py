@@ -5,38 +5,40 @@ PROJECT_VERSION = '0.1.0'
 
 
 class StatsVisualizer:
+
+    df_columns = ['x', 'y', 'z', 'v_x', 'v_y', 'v_z', 'particle_number', 'iter_number']
     
     def __init__(self, file_path="out_stats.csv"):
         self.fig, self.ax = plt.subplots()
         self._file_path = file_path
+        self.df = pd.read_csv(file_path)
 
-    def draw_plot(self, x_var, y_var, _label="Figure 1"):
+    def _get_column(self, col_name, particle_no):
+        """
+        Gets Series column for one particle
+        @param particle_no: Number of particle
+        @param col_name: Name of column
+        @return: Pandas Series object with column
+        """
+        return self.df[col_name][self.df.particle_number == particle_no]
+
+    def create_plot(self, x_var, y_var, particle_number,  _label="Figure 1"):
         """
         Creates plot: y_var = f(x_var). Doesn't draw it
         @param x_var: Variable of X axis
         @param y_var: Variable of Y axis
+        @param particle_number: Number of particle to track
         @param _label: Label to graph
         @return: None
         """
-        if x_var not in ['x', 'y', 'z', 'v_x', 'v_y', 'v_z', 'particle_number', 'iter_number']:
+        if x_var not in self.df_columns:
             raise ValueError("x_var is not in csv-file")
-        if y_var not in ['x', 'y', 'z', 'v_x', 'v_y', 'v_z', 'particle_number', 'iter_number']:
+        if y_var not in self.df_columns:
             raise ValueError("y_var is not in csv-file")
-        df = pd.read_csv(self._file_path)
-        x = df.x_var
-        y = df.y_var
-        self.ax.plot(x_var, y_var)
+        x = self._get_column(x_var, particle_number)
+        y = self._get_column(y_var, particle_number)
+        self.ax.plot(x, y)
         # Prettify plot
-        if x_var == 'partcile_number':
-            x_var = r'N'
-        elif x_var == 'iter_number':
-            x_var = r'Iteration'
-
-        if y_var == 'partcile_number':
-            y_var = r'N'
-        elif y_var == 'iter_number':
-            y_var = r'Iteration'
-
         self.ax.set_xlabel(x_var)
         self.ax.set_ylabel(y_var)
         self.ax.grid(True)
