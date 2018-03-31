@@ -70,3 +70,7 @@ project(Vector-test)
 project(SpringModel)
     add_executable(SpringModel ${SOURCES_DIR}/cpp/models/SpringModel.cpp)
     target_link_libraries(SpringModel PhysicsModel-lib MaterialDot-lib)
+
+project(TwoStarsModel)
+    add_executable(TwoStarsModel ${SOURCES_DIR}/cpp/models/TwoStarsModel.cpp)
+    target_link_libraries(TwoStarsModel PhysicsModel-lib MaterialDot-lib)
