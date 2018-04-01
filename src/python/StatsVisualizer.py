@@ -126,14 +126,15 @@ class CLI:
     @staticmethod
     def _read_vars():
         while True:
-            print("Введите через пробел три величины: "
-                  "1) Ту, что откладывать по оси Ox"
-                  "2) Ту, что откладывать по оси Oy"
-                  "3) Номер частицы")
+            print("Введите через пробел три величины:\n"
+                  "1) Ту, что откладывать по оси Ox\n"
+                  "2) Ту, что откладывать по оси Oy\n"
+                  "3) Номер частицы\n")
             print("Допустимые величины: ", end='')
-            print()
+            print('')
             for i in StatsVisualizer.df_columns:
                 print(i, end=' ')
+            print()
             opts = input()
             try:
                 opts = opts.split()
@@ -158,13 +159,14 @@ class CLI:
     @staticmethod
     def _read_vars_hist():
         while True:
-            print("Введите через пробел две величины: "
-                  "1) Ту, по которой строить гистрограмму"
-                  "2) Номер частицы")
+            print("Введите через пробел две величины:\n"
+                  "1) Ту, по которой строить гистрограмму\n"
+                  "2) Номер частицы\n")
             print("Допустимые величины: ", end='')
             print()
             for i in StatsVisualizer.df_columns:
                 print(i, end=' ')
+            print()
             opts = input()
             try:
                 opts = opts.split()
