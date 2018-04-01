@@ -85,9 +85,10 @@ class CLI:
         print("2. Создать график двух величин")
         print("3. Отобразить график")
         print("4. Сохранить график в файл")
+        print('5. Отобразить гистограмму для одной величины')
         print("q. Выйти")
         print("?. Вывести это меню еще раз")
-        available_options = ['1', '2', '3', '4', 'q', '?']
+        available_options = ['1', '2', '3', '4', '5', 'q', '?']
         CLI._print_delimiter()
         return available_options
 
@@ -135,6 +136,37 @@ class CLI:
                     if ans.lower() == 'y':
                         continue
                     else:
+                        return None, None, None
+            except:
+                print("Неправильный ввод. Повторить? (y/n)")
+                ans = input()
+                if ans.lower() == 'y':
+                    continue
+                else:
+                    return None, None, None
+            return x_var, y_var, particle_number
+
+    @staticmethod
+    def _read_vars_hist():
+        while True:
+            print("Введите через пробел две величины: "
+                  "1) Ту, по которой строить гистрограмму"
+                  "2) Номер частицы")
+            print("Допустимые величины: ", end='')
+            print()
+            for i in StatsVisualizer.df_columns:
+                print(i, end=' ')
+            opts = input()
+            try:
+                opts = opts.split()
+                x_var, particle_number = opts[0], opts[1]
+                particle_number = int(particle_number)
+                if x_var not in StatsVisualizer.df_columns:
+                    print("Неправильный ввод. Повторить? (y/n)")
+                    ans = input()
+                    if ans.lower() == 'y':
+                        continue
+                    else:
                         return None, None
             except:
                 print("Неправильный ввод. Повторить? (y/n)")
@@ -143,7 +175,7 @@ class CLI:
                     continue
                 else:
                     return None, None
-            return x_var, y_var, particle_number
+            return x_var, particle_number
 
     def _main_loop(self):
         while True:
@@ -181,6 +213,18 @@ class CLI:
                 out_path = input()
                 self.visualizer.save_plot(out_path)
                 self._print_go_to_menu("График был сохранен")
+            elif opt == '5':
+                x_var, particle_number = CLI._read_vars_hist()
+                if x_var is None:
+                    CLI._print_go_to_menu("Нет значений")
+                else:
+                    print("Значения установлены")
+                    print("Создаем гистограмму...")
+                    if self.visualizer is None:
+                        CLI._print_go_to_menu("Сначала нужно считать файл со статистикой")
+                        continue
+                    self.visualizer.create_hist(x_var, particle_number)
+                    CLI._print_go_to_menu("Гистограмма готова")
             elif opt == 'q':
                 print("Благодарим за использование наших услуг! Приятного дня")
                 return
