@@ -31,6 +31,7 @@ class StatsVisualizer:
         @param _title: Title to graph
         @return: None
         """
+        self.fig, self.ax = plt.subplots()
         if x_var not in self.df_columns:
             raise ValueError("x_var is not in csv-file")
         if y_var not in self.df_columns:
@@ -58,6 +59,7 @@ class StatsVisualizer:
         @param _title: Title for histogram (shown at the top)
         @return:
         """
+        self.fig, self.ax = plt.subplots()
         if x_var not in self.df_columns:
             raise ValueError("x_var is not in csv-file")
         x = self._get_column(x_var, particle_number)
