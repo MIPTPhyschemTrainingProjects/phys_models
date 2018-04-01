@@ -70,7 +70,7 @@ class StatsVisualizer:
         if x_var not in self.df_columns:
             raise ValueError("x_var is not in csv-file")
         x = self._get_column(x_var, particle_number)
-        self.ax.hist(x, bins=100)
+        self.ax.hist(x, bins=250)
         self.ax.set_xlabel(x_var)
         self.ax.grid(True)
         self.ax.set_title(_title)
