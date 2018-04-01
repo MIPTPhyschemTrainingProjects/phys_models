@@ -50,6 +50,22 @@ class StatsVisualizer:
     def save_plot(self, out_file="figure.pdf"):
         self.fig.savefig(out_file)
 
+    def create_hist(self, x_var, particle_number, _title='Histogram 1'):
+        """
+        Creates histogram for given x_var. Doesn't draw it
+        @param x_var: Value to calculate
+        @param particle_number: Number of particle to watch histogram for
+        @param _title: Title for histogram (shown at the top)
+        @return:
+        """
+        if x_var not in self.df_columns:
+            raise ValueError("x_var is not in csv-file")
+        x = self._get_column(x_var, particle_number)
+        self.ax.hist(x, bins=100)
+        self.ax.set_xlabel(x_var)
+        self.ax.grid(True)
+        self.ax.set_title(_title)
+
 
 #TODO: Перепиши меня с использованием ООП и регистрацией команд!!!!
 class CLI:
