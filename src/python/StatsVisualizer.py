@@ -46,10 +46,17 @@ class StatsVisualizer:
         self.ax.set_title(_title)
 
     def show_plot(self):
-        self.fig.show()
+        try:
+            self.fig.show()
+        except:
+            CLI._print_go_to_menu("После одного использования нужно заново создать график")
+
 
     def save_plot(self, out_file="figure.pdf"):
-        self.fig.savefig(out_file)
+        try:
+            self.fig.savefig(out_file)
+        except:
+            CLI._print_go_to_menu("После одного использования нужно заново создать график")
 
     def create_hist(self, x_var, particle_number, _title='Histogram 1'):
         """
