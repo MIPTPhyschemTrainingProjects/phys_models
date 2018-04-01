@@ -22,13 +22,13 @@ class StatsVisualizer:
         """
         return self.df[col_name][self.df.particle_number == particle_no]
 
-    def create_plot(self, x_var, y_var, particle_number,  _label="Figure 1"):
+    def create_plot(self, x_var, y_var, particle_number,  _title="Figure 1"):
         """
         Creates plot: y_var = f(x_var). Doesn't draw it
         @param x_var: Variable of X axis
         @param y_var: Variable of Y axis
         @param particle_number: Number of particle to track
-        @param _label: Label to graph
+        @param _title: Title to graph
         @return: None
         """
         if x_var not in self.df_columns:
@@ -42,7 +42,7 @@ class StatsVisualizer:
         self.ax.set_xlabel(x_var)
         self.ax.set_ylabel(y_var)
         self.ax.grid(True)
-        self.ax.set_title(_label)
+        self.ax.set_title(_title)
 
     def show_plot(self):
         self.fig.show()
