@@ -1,0 +1,21 @@
+cache:
+  - ccache
+
+language: cpp
+os: linux
+branch:
+  only:
+  - master
+
+env:
+  - BUILD_DIR=$TRAVIS_BUILD_DIR/build/
+
+install:
+  - mkdir $BUILD_DIR
+  - cd $BUILD_DIR
+  - cmake ..
+  - make -j4
+
+script:
+  - $BUILD_DIR/MaterialDot-test
+  - $BUILD_DIR/Vector-test
