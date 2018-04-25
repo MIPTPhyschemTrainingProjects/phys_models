@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/MIPTPhyschemTrainingProjects/phys_models.svg?branch=master)](https://travis-ci.org/MIPTPhyschemTrainingProjects/phys_models)
 # phys_models
 _"Все природные модели - это модели, которые моделируют природу."  
 Прут Э.В._
