@@ -74,3 +74,7 @@ project(SpringModel)
 project(TwoStarsModel)
     add_executable(TwoStarsModel ${SOURCES_DIR}/cpp/models/TwoStarsModel.cpp)
     target_link_libraries(TwoStarsModel PhysicsModel-lib MaterialDot-lib)
+    
+project(Leonardo_Jonas)
+    add_executable(Leonardo_Jonas ${SOURCES_DIR}/cpp/models/Leonardo_Jonas.cpp)
+    target_link_libraries(Leonardo_Jonas PhysicsModel-lib MaterialDot-lib)
