@@ -5,6 +5,7 @@
 #include <iostream>
 #include "PhysicsModel.hpp"
 #include "MaterialDot.hpp"
+#include <cmath>
 
 template<typename Particle>
 class TwoStarsModel: public PhysicsModel<Particle> {

@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include "Vector.hpp"
+#include <cmath>
 
 TEST(Vector_basics, SimpleCreation) {
     ASSERT_NO_THROW(Vector());
